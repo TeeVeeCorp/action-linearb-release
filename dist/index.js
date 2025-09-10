@@ -24942,23 +24942,28 @@ async function run() {
     const apiKey = core.getInput('api_key', { required: true })
     const repoURL = core.getInput('repo_url', { required: true })
     const refName = core.getInput('ref_name', { required: true })
-    const services = core.getInput('services')
+    const serviceNames = core.getInput('services')
 
-    let timeStamp = core.getInput('time_stamp')
-    let custom_stage = core.getInput('stage')
+    let timestamp = core.getInput('time_stamp')
+    let stage = core.getInput('stage')
 
-    if (!timeStamp) {
-      timeStamp = new Date().toISOString()
+    if (!timestamp) {
+      timestamp = new Date().toISOString()
     }
 
-    if (!custom_stage) {
-      custom_stage = 'release'
+    if (!stage) {
+      stage = 'release'
     }
 
-    const serviceArray =
-      services ?? services.split(',').map(item => item.trim()) | []
+    let services = undefined
 
-    core.info(`Create LinearB release metrics for ${serviceArray}`)
+    if (serviceNames) {
+      services = services.split(',').map(item => item.trim())
+    }
+
+    core.info(
+      `Create LinearB release metrics for services:'${services}' in ${repoURL}`
+    )
 
     const url = 'https://public-api.linearb.io/api/v1/deployments'
 
@@ -24971,9 +24976,9 @@ async function run() {
       body: JSON.stringify({
         repo_url: repoURL,
         ref_name: refName,
-        services: serviceArray,
-        timestamp: timeStamp,
-        stage: custom_stage
+        services,
+        timestamp,
+        stage
       })
     })
 
