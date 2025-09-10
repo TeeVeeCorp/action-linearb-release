@@ -24932,7 +24932,6 @@ exports["default"] = _default;
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 const core = __nccwpck_require__(2186)
-const axios = __nccwpck_require__(3778)
 
 /**
  * The main function for the action.
@@ -24989,14 +24988,6 @@ async function run() {
 module.exports = {
   run
 }
-
-
-/***/ }),
-
-/***/ 3778:
-/***/ ((module) => {
-
-module.exports = eval("require")("axios");
 
 
 /***/ }),

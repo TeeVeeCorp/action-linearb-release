@@ -1,5 +1,4 @@
 const core = require('@actions/core')
-const axios = require('axios')
 
 /**
  * The main function for the action.
