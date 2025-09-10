@@ -24961,8 +24961,16 @@ async function run() {
       services = services.split(',').map(item => item.trim())
     }
 
+    const body = JSON.stringify({
+      repo_url: repoURL,
+      ref_name: refName,
+      services,
+      timestamp,
+      stage
+    })
+
     core.info(
-      `Create LinearB release metrics for services:'${services}' in ${repoURL}`
+      `Create LinearB release metrics for services:'${services}' in ${repoURL} body=${body}`
     )
 
     const url = 'https://public-api.linearb.io/api/v1/deployments'
@@ -24973,13 +24981,7 @@ async function run() {
         'Content-Type': 'application/json',
         'X-API-Key': apiKey
       },
-      body: JSON.stringify({
-        repo_url: repoURL,
-        ref_name: refName,
-        services,
-        timestamp,
-        stage
-      })
+      body
     })
 
     if (response.status !== 200) {
