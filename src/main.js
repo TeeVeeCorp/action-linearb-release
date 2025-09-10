@@ -10,7 +10,7 @@ async function run() {
     const apiKey = core.getInput('api_key', { required: true })
     const repoURL = core.getInput('repo_url', { required: true })
     const refName = core.getInput('ref_name', { required: true })
-    const services = core.getInput('services', { required: true })
+    const services = core.getInput('services')
 
     let timeStamp = core.getInput('time_stamp')
     let custom_stage = core.getInput('stage')
@@ -23,7 +23,8 @@ async function run() {
       custom_stage = 'release'
     }
 
-    const serviceArray = services.split(',').map(item => item.trim())
+    const serviceArray =
+      services ?? services.split(',').map(item => item.trim()) | []
 
     core.info(`Create LinearB release metrics for ${serviceArray}`)
 
