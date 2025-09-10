@@ -24955,7 +24955,7 @@ async function run() {
       stage = 'release'
     }
 
-    let services = undefined
+    let services = []
 
     if (serviceNames) {
       services = services.split(',').map(item => item.trim())
